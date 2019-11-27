@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h2>Повна інформація по запиту: {{ userinstanceaccess.jira_ticket }}</h2>
+
+
+  <p><strong>Коричтувач (login):</strong> {{ userinstanceaccess.subject }}</p>
+  <p><strong>Користувач, ім'я</strong> {{ userinstanceaccess.subject.get_full_name }}</p> 
+  <p><strong>Пароль</strong> {{ userinstanceaccess.subject.profile.password }}</p>
+  <p><strong>Дата надання доступу</strong> {{ userinstanceaccess.access_date }}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Інформація по доступу</h4>
+
+    <hr>
+    <p><strong>Запит:</strong> {{ userinstanceaccess.jira_ticket }}</p>
+    <strong>Доступ надано до організації:</strong> {{ userinstanceaccess.organization }}
+    <p><strong>Роль(-і):</strong> {{ userinstanceaccess.display_role }}</p>
+
+   
+
+
+  </div>
+{% endblock %}

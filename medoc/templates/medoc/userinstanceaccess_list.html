@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Запити</h1>
+  {% if perms.medoc.can_view_all_list %}
+    {% if userinstanceaccess_list %}
+    <ul>
+
+      {% for userinstanceaccess in userinstanceaccess_list %}
+      <li>
+        <a href="{{ userinstanceaccess.get_absolute_url }}">{{ userinstanceaccess.jira_ticket }}</a> {{ userinstanceaccess.user }} {{ userinstanceaccess.user_status }} {{ userinstanceaccess.display_role }} {{ userinstanceaccess.organization }} {{ userinstanceaccess.access_date }}
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>В базі записи відсутні.</p>
+    {% endif %}
+  {% else %}
+    <p>Доступ заборонено</p>
+  {% endif %}
+{% endblock %}

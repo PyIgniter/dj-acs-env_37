@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h2>Повна інформація по користувачу: {{ profile_detail.get_full_name }}</h2>
+
+  <p><strong>Прізвище:</strong> {{ profile_detail.last_name }}</p>
+  <p><strong>Ім'я:</strong> {{ profile_detail.first_name }}</p>
+  <p><strong>По батькові:</strong> {{ profile_detail.profile.middle_name }}</p>
+  <p><strong>E-mail:</strong> {{ profile_detail.email }}</p>
+  <p><strong>Користувач:</strong> {{ profile_detail.username }}</p>
+  <p><strong>Пароль M.E.Doc:</strong> {{ profile_detail.profile.password }}</p>
+  <p><strong>Посада</strong> {{ profile_detail.profile.job_title }}</p> 
+  <p><strong>Відділ</strong> {{ profile_detail.profile.department }}</p>
+  <p><strong>Організація</strong> {{ profile_detail.profile.company }}</p>
+  <p><strong>Контактний номер телефону</strong> {{ profile_detail.profile.personal_mobile_phone }}</p>
+  <p><strong>Фізичне розташування</strong> {{ profile_detail.profile.phisical_delivery_office_name }}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Наявні доступи</h4>
+
+    {% for instance in profile_detail.profile.userinstanceaccess_set.all %}
+    <hr>
+    <p><strong>Запит:</strong> {{instance.jira_ticket}}</p>
+    <strong>Доступ надано:</strong> {{instance.access_date}}
+    <strong>Статус користувача:</strong> {{instance.user_status}}
+    <p></p>
+    <p><strong>Назва органіації:</strong> {{instance.organization}}</p>
+    <p><strong>Ролі:</strong> {{instance.display_role}}</p>
+   
+    <p class="text-muted"><strong>Id:</strong> {{instance.id}}</p>
+    {% endfor %}
+  </div>
+{% endblock %}

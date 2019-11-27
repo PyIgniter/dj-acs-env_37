@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>M.E.Doc Kernel Home</h1>
+
+  <p>Раді бачити вас на порталі <em>M.E.Doc Kernel</em>.</p>
+
+<h2>Статистика</h2>
+
+  <p>M.E.Doc лічильники:</p>
+  <ul>
+    <li><strong>Кількість запитів за весь час:</strong> {{ num_request }}</li>
+    <li><strong>Кількість запитів за останій місяць:</strong> {{ num_request_by_month }}</li>
+    <li><strong>Кількість користувачів:</strong> {{ num_users }}</li>
+    <li><strong>Кількість організацій:</strong> {{ num_organizations }}</li>
+  </ul>
+  
+<p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
+
+{% endblock %}
+

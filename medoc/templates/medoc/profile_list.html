@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Користувачі</h1>
+  {% if perms.medoc.can_view_all_list %}
+    {% if user_list %}
+    <ul>
+
+      {% for user in user_list %}
+      <li>
+        <a href="{{ user.get_absolute_url }}">{{ user }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>В базі користувачі відсутні.</p>
+    {% endif %}
+  {% else %}
+      <p>Доступ заборонено</p>
+  {% endif %}
+{% endblock %}
+
+

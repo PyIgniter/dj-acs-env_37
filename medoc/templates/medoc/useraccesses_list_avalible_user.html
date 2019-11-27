@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Наявні доступи</h1>
+
+  {% if userinstanceaccess_list %}
+  <ul>
+    {% for userinstanceaccess in userinstanceaccess_list %}
+      <li>
+        <a href="{{ userinstanceaccess.get_absolute_url }}">{{ userinstanceaccess.jira_ticket }}</a> {{ userinstanceaccess.user }} {{ userinstanceaccess.user_status }} {{ userinstanceaccess.display_role }} {{ userinstanceaccess.organization }} {{ userinstanceaccess.access_date }}
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% else %}
+    <p>Наразі доступи відсутні.</p>
+  {% endif %}       
+{% endblock %}

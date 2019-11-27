@@ -1,0 +1,71 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Довідники</h1>
+  <h4>Напрями компанії</h4>
+  <p><a href="{% url 'direction-company_create' %}">Додати напрям</a>
+  <p>
+  {% if direction_list %}
+  <ul>
+
+    {% for item in direction_list %}
+    <li>
+      <a href="">{{ item.name }}</a> - {{ item.direction_company }} <a href="{% url 'direction-company_update' item.id %}">Змінити</a> - <a href="{% url 'direction-company_delete' item.id %}">Видалити</a>
+    </li>
+    {% endfor %}
+  
+  </ul>
+  {% else %}
+    <p>There are no users in the base.</p>
+  {% endif %}  
+
+  <h4>Ролі в системі</h4>
+  <p><a href="{% url 'role_create' %}">Додати роль</a>
+  <p>
+  {% if role_list %}
+  <ul>
+
+    {% for item in role_list %}
+    <li>
+      <a href="">{{ item.name }}</a> - {{ item.description }} <a href="{% url 'role_update' item.id %}">Змінити</a> - <a href="{% url 'role_delete' item.id %}">Видалити</a>
+    </li>
+    {% endfor %}
+    
+  </ul>
+  {% else %}
+    <p>There are no users in the base.</p>
+  {% endif %}
+
+  <h4>Оргінізації</h4>
+  <p><a href="{% url 'organization_create' %}">Додати організацію.</a>
+  <p>
+  {% if organization_list %}
+  <ul>
+
+    {% for item in organization_list %}
+    <li>
+      <a href="">{{ item.num_id }}</a> {{ item.name }} <a href="{% url 'organization_update' item.id %}">Змінити</a> - <a href="{% url 'organization_delete' item.id %}">Видалити</a>
+    </li>
+    </li>
+    {% endfor %}
+    
+  </ul>
+  {% else %}
+    <p>There are no users in the base.</p>
+  {% endif %}   
+
+  <h4>Сервери</h4>
+  {% if server_list %}
+  <ul>
+
+    {% for item in server_list %}
+    <li>
+      <a href="">{{ item.name }}</a> - {{ item.ip_address }} {{ item.server_assignment }}
+    </li>
+    {% endfor %}
+    
+  </ul>
+  {% else %}
+    <p>There are no users in the base.</p>
+  {% endif %}        
+{% endblock %}
