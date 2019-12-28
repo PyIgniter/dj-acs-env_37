@@ -1,6 +1,6 @@
 import csv, sys, os
 
-project_dir = r"C:\Users\a.dmytrenko\Google Диск (empl.dmytrenko@gmail.com)\Code\PYTHON\Project\dj-portal\acs"
+project_dir = r"C:\Users\a.dmytrenko\Downloads\Project\dj-acs-env_37"
 
 sys.path.append(project_dir)
 
@@ -12,7 +12,7 @@ django.setup()
 from django.contrib.auth.models import User
 from medoc.models import Profile
 
-data = csv.reader(open(r"C:\Users\a.dmytrenko\Google Диск (empl.dmytrenko@gmail.com)\Code\PYTHON\Project\dj-portal\profile.csv", encoding='utf-8'), delimiter=";")
+data = csv.reader(open(r"C:\Users\a.dmytrenko\Downloads\Project\Import\profile_list.csv", encoding='utf-8'), delimiter=";")
 
 for row in data:
     if row[0] != 'username':

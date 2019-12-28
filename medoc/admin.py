@@ -119,68 +119,69 @@ class ProfileAdmin(ImportExportModelAdmin):
     resource_class = ProfileResource
 
     search_fields = ('user__username',)
-    list_display = ('user', 'get_full_name', 'middle_name','login', 'password', 'department', 'company', 'external_user')
+    list_display = ('user', 'get_full_name', 'login', 'password', 'department', 'company', 'external_user')
     fields = ['middle_name', ('user', 'external_user'), ('login', 'password'), ('job_title', 'department', 'company'),('personal_mobile_phone', 'phisical_delivery_office_name')]
     inlines = [UserInstanceAccessInline]
 
     def get_full_name(self, obj):
-        return obj.user.get_full_name()
+        return obj.get_full_name()
     get_full_name.short_description = 'Full name'
-    get_full_name.admin_order_field = 'user__get_full_name'
-
-# class UserInstanceAccessResource(resources.ModelResource):
+    get_full_name.admin_order_field = 'get_full_name'
 
 
-#     # user_status = Field()
+class UserInstanceAccessResource(resources.ModelResource):
 
-#     user = Field(
-#         column_name='user',
-#         attribute='profile',
-#         widget=ForeignKeyWidget(Profile, 'login')
-#         )
-#     first_name = Field(
-#         column_name='first_name',
-#         attribute='subject',
-#         widget=ForeignKeyWidget(User, 'first_name')
-#         )
-#     last_name = Field(
-#         column_name='last_name',
-#         attribute='subject',
-#         widget=ForeignKeyWidget(User, 'last_name')
-#         )
-#     organization = Field(
-#         column_name='organization',
-#         attribute='organization',
-#         widget=ForeignKeyWidget(Organization, 'name')
-#         )
-#     role = Field(
-#         column_name='role',
-#         attribute='role',
-#         widget=ManyToManyWidget(Role, ',', 'name')
-#         )
+
+    # user_status = Field()
+
+    user = Field(
+        column_name='Логін',
+        attribute='profile',
+        widget=ForeignKeyWidget(Profile, 'user__username')
+        )
+    first_name = Field(
+        column_name="Ім'я",
+        attribute='subject',
+        widget=ForeignKeyWidget(User, 'first_name')
+        )
+    last_name = Field(
+        column_name='Прізвище',
+        attribute='subject',
+        widget=ForeignKeyWidget(User, 'last_name')
+        )
+    organization = Field(
+        column_name='Організація',
+        attribute='organization',
+        widget=ForeignKeyWidget(Organization, 'name')
+        )
+    role = Field(
+        column_name='Ролі',
+        attribute='role',
+        widget=ManyToManyWidget(Role, ',', 'name')
+        )
     
     
 
-#     class Meta:
-#         model = UserInstanceAccess
-#         fields = ('access_date', 'jira_ticket','id',)
-#         export_order = (
-#         'id',
-#         'first_name',
-#         'last_name',
-#         'jira_ticket',
-#         'user',
-#         'organization',
-#         'role',
-#         'access_date'
-#         )
+    class Meta:
+        model = UserInstanceAccess
+        fields = ('access_date', 'jira_ticket','id',)
+        export_order = (
+        'id',
+        'first_name',
+        'last_name',
+        'jira_ticket',
+        'user',
+        'organization',
+        'role',
+        'access_date'
+        )
       
 
 # Register the Admin classes for UserInstanceAccess using the decorator
 @admin.register(UserInstanceAccess)
 class UserInstanceAccessAdmin(ImportExportModelAdmin):
 
-    # resource_class = UserInstanceAccessResource
+    resource_class = UserInstanceAccessResource
     search_fields = ('jira_ticket', 'subject__username',)
     list_display = ('jira_ticket', 'get_full_name', 'subject', 'display_role', 'organization', 'get_server',  'access_date')
 
@@ -234,7 +235,37 @@ class DirectionCompanyInstanceAdmin(ImportExportModelAdmin):
 class RoleAdmin(ImportExportModelAdmin):
     pass
 
+class OrganizationResource(resources.ModelResource):
+
+    group = Field(
+        column_name='group',
+        attribute='group',
+        widget=ForeignKeyWidget(DirectionCompanyInstance, 'name')
+        )
+    location_on_server = Field(
+        column_name='location_on_server',
+        attribute='location_on_server',
+        widget=ForeignKeyWidget(Server, 'name')
+        )
+
+
+
+    class Meta:
+        model = Organization
+        fields = ('name', 'num_id','is_branch', 'status_organization',)
+        export_order = (
+        'name',
+        'num_id',
+        'is_branch',
+        'group',
+        'location_on_server',
+        'status_organization'
+        )
+      
+
+
 @admin.register(Organization)
 class OrganizationAdmin(ImportExportModelAdmin):
     """docstring for PersonAdmin"""
+    resource_class = OrganizationResource
     list_display = ('name', 'num_id','is_branch', 'group', 'location_on_server', 'status_organization')

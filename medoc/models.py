@@ -49,6 +49,10 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
+    def get_full_name(self):
+        return "{} {} {}".format(self.user.last_name, self.user.first_name, self.middle_name)
+
+
 
 class UserInstanceAccess(models.Model):
     """
